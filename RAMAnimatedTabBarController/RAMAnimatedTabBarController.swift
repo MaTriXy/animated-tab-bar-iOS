@@ -413,15 +413,7 @@ open class RAMAnimatedTabBarController: UITabBarController {
     viewContainer.addGestureRecognizer(tapGesture)
     
     // add constrains
-    let constY = NSLayoutConstraint(item: viewContainer,
-                                    attribute: NSLayoutAttribute.bottom,
-                                    relatedBy: NSLayoutRelation.equal,
-                                    toItem: view,
-                                    attribute: NSLayoutAttribute.bottom,
-                                    multiplier: 1,
-                                    constant: 0)
-    
-    view.addConstraint(constY)
+    viewContainer.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
     
     let constH = NSLayoutConstraint(item: viewContainer,
                                     attribute: NSLayoutAttribute.height,
@@ -437,7 +429,7 @@ open class RAMAnimatedTabBarController: UITabBarController {
   
   // MARK: actions
   
-  open func tapHandler(_ gesture:UIGestureRecognizer) {
+  @objc open func tapHandler(_ gesture:UIGestureRecognizer) {
     
     guard let items = tabBar.items as? [RAMAnimatedTabBarItem],
       let gestureView = gesture.view else {
@@ -470,7 +462,6 @@ open class RAMAnimatedTabBarController: UITabBarController {
       container.backgroundColor = items[currentIndex].bgSelectedColor
       
       selectedIndex = gestureView.tag
-      delegate?.tabBarController?(self, didSelect: controller)
       
     } else if selectedIndex == currentIndex {
       
@@ -478,5 +469,6 @@ open class RAMAnimatedTabBarController: UITabBarController {
         navVC.popToRootViewController(animated: true)
       }
     }
+    delegate?.tabBarController?(self, didSelect: controller)
   }
 }
