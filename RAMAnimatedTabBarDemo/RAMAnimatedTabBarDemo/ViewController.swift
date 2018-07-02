@@ -14,11 +14,16 @@ class ViewController: UIViewController {
 
     // PRAGMA: actions
     @IBAction func showBadgeHandelr(_: AnyObject) {
+        // example for showing badges
         index += 1
         tabBarItem.badgeValue = "\(index)"
     }
 
     @IBAction func hideBadgeHandler(_: AnyObject) {
         tabBarItem.badgeValue = nil
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
 }
